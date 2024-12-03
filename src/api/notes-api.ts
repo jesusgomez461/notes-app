@@ -8,8 +8,15 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// api.defaults.headers.common["Accept-Language"] = "es";
-api.defaults.headers.common["User-TimeZone"] =
-  Intl.DateTimeFormat().resolvedOptions().timeZone;
+// export const setAuthToken = () => {
+//   const { session } = SessionStore();
+//   console.log(session);
+
+//   if (session) {
+//     api.defaults.headers.Authorization = `Bearer ${session.access_token}`;
+//   } else {
+//     delete api.defaults.headers.Authorization;
+//   }
+// };
 
 export default api;

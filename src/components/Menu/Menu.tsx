@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
 import { START_ICON_LIGHT } from "../../global";
-import { MENU_DOWN, MENU_STRUCTURE } from "./Menu.constants";
+import { MENU_STRUCTURE } from "./Menu.constants";
 import { IMenuOptions } from "./Menu.interface";
 
 function Menu() {
@@ -118,36 +118,6 @@ function Menu() {
                   ))}
                 </ul>
               )}
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <nav className="flex flex-column gap-2">
-        <ul className="p-0 m-0">
-          {MENU_DOWN.map((menuItem: IMenuOptions) => (
-            <li
-              key={menuItem.id}
-              className={`${
-                menuItem.menuName + "_" + menuItem.id
-              } list-none li-app-menu ${
-                isActiveParentMenu(menuItem) ? "active-parent" : ""
-              }`}
-              style={{ paddingTop: "10px", paddingBottom: "10px" }}
-            >
-              <NavLink
-                to={menuItem.redirectTo}
-                className={() =>
-                  `flex align-items-center justify-content-center no-underline menuItem-header ${
-                    isActiveMenu(menuItem.redirectTo) ? "active" : ""
-                  }`
-                }
-              >
-                <div className="flex align-items-center gap-2">
-                  <i
-                    className={`${START_ICON_LIGHT + menuItem.nameLeftIcon}`}
-                  ></i>
-                </div>
-              </NavLink>
             </li>
           ))}
         </ul>

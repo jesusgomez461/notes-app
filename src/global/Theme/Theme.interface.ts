@@ -5,6 +5,11 @@ export interface ITheme {
   borderLightColor: string;
   textColor: string;
   borderColor: string;
+  errorColor: string;
+  whiteColor: string;
+  redColor: string;
+  successColor: string;
+  mainColorLight: string;
 }
 
 export type TColorTheme =
@@ -13,7 +18,12 @@ export type TColorTheme =
   | "containerColor"
   | "borderLightColor"
   | "textColor"
-  | "borderColor";
+  | "borderColor"
+  | "errorColor"
+  | "whiteColor"
+  | "redColor"
+  | "successColor"
+  | "mainColorLight";
 
 export type TTheme = "dark" | "light";
 

@@ -1,18 +1,22 @@
+/* eslint-disable no-extra-boolean-cast */
 import {
   BrowserRouter,
   Navigate,
   Route,
   Routes as RoutesGroup,
 } from "react-router-dom";
-import { SessionStore } from "../../store/store.session";
-import { ProtectedRoute } from "./ProtectedRoutes";
-import Login from "../pages/Login/Login";
+import { GlobalStore } from "../../store/store.global";
+import Layout from "../Layout/Layout";
 import CreateAccount from "../pages/CreateAccount/CreateAccount";
 import Home from "../pages/Home/Home";
-import Layout from "../Layout/Layout";
+import Login from "../pages/Login/Login";
+import { ProtectedRoute } from "./ProtectedRoutes";
+import Category from "../pages/Category/Category";
+import { SessionStore } from "../../store/store.session";
 
 function Routes() {
   const { session } = SessionStore();
+  const { isSession } = GlobalStore();
 
   return (
     <BrowserRouter>
@@ -20,7 +24,7 @@ function Routes() {
         <Route
           element={
             <ProtectedRoute
-              isAllowed={session ? false : true}
+              isAllowed={isSession ? false : true}
               redirectTo="/home"
             />
           }
@@ -32,7 +36,7 @@ function Routes() {
         <Route
           element={
             <ProtectedRoute
-              isAllowed={session ? true : false}
+              isAllowed={!!session?.access_token ? true : false}
               redirectTo="/login"
             />
           }
@@ -42,6 +46,14 @@ function Routes() {
             element={
               <Layout>
                 <Home />
+              </Layout>
+            }
+          />
+          <Route
+            path={`/categories`}
+            element={
+              <Layout>
+                <Category />
               </Layout>
             }
           />

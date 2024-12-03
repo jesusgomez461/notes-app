@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ThemeProvider } from "styled-components";
 import { DARK_THEME, LIGHT_THEME, themeStore } from "./global";
 import { Toaster } from "sonner";
@@ -10,6 +11,7 @@ import { addLocale, locale } from "primereact/api";
 
 import { useEffect } from "react";
 import i18n from "./global/locales/i18n";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 const updatePrimeReactLocale = (lng: string) => {
   const translation = i18n.getResourceBundle(lng, "translation");
@@ -24,14 +26,18 @@ const updatePrimeReactLocale = (lng: string) => {
 function App() {
   const { i18n } = useTranslation();
   const { theme } = themeStore();
-  const { session } = SessionStore();
+  const { session, language } = SessionStore();
   const { setIsSession } = GlobalStore();
 
   useEffect(() => {
-    if (session) {
+    if (session !== null) {
       setIsSession(true);
     }
-  }, [session, setIsSession]);
+  }, [session]);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
 
   useEffect(() => {
     updatePrimeReactLocale(i18n.language);
@@ -50,6 +56,7 @@ function App() {
   return (
     <ThemeProvider theme={theme === "light" ? LIGHT_THEME : DARK_THEME}>
       <Toaster position="top-center" closeButton richColors />
+      <ConfirmDialog />
       <Styles />
       <Routes />
     </ThemeProvider>

@@ -3,28 +3,20 @@ import { create } from "zustand";
 import { StorageValue, persist } from "zustand/middleware";
 import { TLanguage, TSessionActions, TSessionStore } from "./store.interface";
 import { SECRET_KEY_LOCAL_STORAGE, TTheme } from "../global";
+import { IUser } from "../hooks";
 
 export const SessionStore = create(
   persist<TSessionStore & TSessionActions>(
     (set) => ({
       session: null,
-      countryCode: "co",
       theme: "light",
       language: "es",
-      isVisibleSidebar: true,
-      setSession: (session: unknown) => {
+      setSession: (session: IUser | null) => {
         set({
           session,
         });
       },
       clearSession: () => set((state) => ({ ...state, session: null })),
-      clearSettings: () => set((state) => ({ ...state, settings: null })),
-      setCountryCode: (countryCode: string) => {
-        set({
-          countryCode,
-        });
-      },
-      clearCountryCode: () => set((state) => ({ ...state, countryCode: "" })),
       setTheme: (theme: TTheme) => {
         set({
           theme,
@@ -37,8 +29,6 @@ export const SessionStore = create(
         });
       },
       clearLanguage: () => set((state) => ({ ...state, language: "es" })),
-      setIsVisibleSidebar: (isVisibleSidebar: boolean) =>
-        set((state) => ({ ...state, isVisibleSidebar })),
     }),
     {
       name: "session",
